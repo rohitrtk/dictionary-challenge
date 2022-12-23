@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Search from "./Components/Search";
+import Card, { WordData } from "./Components/Card";
+import "./App.css";
 
-function App() {
+const App = () => {
+  // The word in the search bar
+  const [word, setWord] = useState<string>("");
+
+  // The array of words returned from the query
+  const [wordData, setWordData] = useState<WordData>();
+
+  const querySearch = async () => {
+    if (!word) return;
+
+    const res = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    );
+    const data = await res.json();
+    setWordData(data[0]);
+  };
+
+  useEffect(() => {
+    console.log(wordData);
+  }, [wordData]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Search setWord={setWord} querySearch={querySearch} />
+      {wordData ? <Card data={wordData} /> : <></>}
     </div>
   );
-}
+};
 
 export default App;

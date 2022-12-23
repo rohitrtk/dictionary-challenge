@@ -1,0 +1,12 @@
+.card {
+  text-align: center;
+  padding: 1em;
+  border: 1px solid black;
+  margin-inline: 200px;
+}
+
+.meaning {
+  text-align: start;
+  display: grid;
+  grid-template-columns: 100px auto;
+}
