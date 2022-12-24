@@ -1,4 +1,4 @@
-import React, { useState, createRef, KeyboardEvent } from "react";
+import React, { createRef, KeyboardEvent } from "react";
 import "./../Styles/Search.css";
 
 interface ISearch {
@@ -20,16 +20,14 @@ const Search = ({ setWord, querySearch }: ISearch) => {
   };
 
   return (
-    <>
-      <input
-        ref={searchRef}
-        className="search-input"
-        type="text"
-        placeholder="Search..."
-        onKeyDown={onKeyDown}
-        onChange={onChange}
-      />
-    </>
+    <input
+      ref={searchRef}
+      className="search-input"
+      type="text"
+      placeholder="Search..."
+      onKeyDown={onKeyDown}
+      onChange={onChange}
+    />
   );
 };
 

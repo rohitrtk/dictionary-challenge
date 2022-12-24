@@ -28,23 +28,29 @@ const Meaning = ({ partOfSpeech, meaning }: IMeaning) => {
 };
 
 interface ICard {
-  data: WordData;
+  data: WordData | undefined;
 }
 
 const Card = ({ data }: ICard) => {
-  const { word, meanings } = data;
-
   return (
     <div className="card">
-      <h1>{`${word.charAt(0).toUpperCase()}${word.slice(1)}`}</h1>
-      {meanings.map((meaning) => {
-        const { partOfSpeech, definitions } = meaning;
+      {data ? (
+        <>
+          <h1>{`${data.word.charAt(0).toUpperCase()}${data.word.slice(1)}`}</h1>
+          {data.meanings.map((meaning) => {
+            const { partOfSpeech, definitions } = meaning;
 
-        return definitions.map((d) => {
-          const { definition } = d;
-          return <Meaning partOfSpeech={partOfSpeech} meaning={definition} />;
-        });
-      })}
+            return definitions.map((d) => {
+              const { definition } = d;
+              return (
+                <Meaning partOfSpeech={partOfSpeech} meaning={definition} />
+              );
+            });
+          })}
+        </>
+      ) : (
+        <h1>Unable to find word</h1>
+      )}
     </div>
   );
 };
